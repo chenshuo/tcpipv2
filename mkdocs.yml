@@ -1,4 +1,8 @@
-site_name: TCP/IP
+site_name: TCP/IP Illustrated vol. 2
+theme: readthedocs
 pages:
 - Home: index.md
-theme: readthedocs
+- Code Walkthrough:
+  - System calls: syscall.md
+  - TCP: tcp.md
+  - Initialization: init.md

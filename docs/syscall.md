@@ -1,0 +1,3 @@
+Sockets API 
+
+## `socket()`
