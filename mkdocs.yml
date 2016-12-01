@@ -2,7 +2,7 @@ site_name: TCP/IP Illustrated vol. 2
 theme: readthedocs
 pages:
 - Home: index.md
-- Code Walkthrough:
+- Walkthrough 4.4BSD-Lite2:
   - System calls: syscall.md
   - TCP: tcp.md
   - Initialization: init.md

@@ -45,7 +45,9 @@ connect()  // connect to 127.0.0.1:1234
         tp->t_state = TCPS_SYN_SENT;
         -> tcp_sendseqinit(tp)
         -> tcp_output(tp)  // send SYN
+          -> in_cksum()
           -> ip_output()
+            -> in_cksum()
             -> ifp->if_output() -> looutput()
 ```
 
