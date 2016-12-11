@@ -9,7 +9,7 @@
   <input type="text" value="" id="demo_q" style="width: 450px;" placeholder="Search" />
   <div id="jstree">
     <ul>
-<li>main [642]<ul>
+<li>main [822]<ul>
   <li>init [90]<ul>
     <li>loopattach [5]<ul>
       <li>if_attach [4]<ul>
@@ -134,8 +134,8 @@
       <li>microtime</li>
     </ul></li>
   </ul></li>
-  <li>ping [48]<ul>
-    <li>inject [47]<ul>
+  <li>ping [54]<ul>
+    <li>inject [53]<ul>
       <li>m_devget [5]<ul>
         <li>xmalloc</li>
         <li>splimp</li>
@@ -149,9 +149,14 @@
       <li>updatetime [2]<ul>
         <li>microtime</li>
       </ul></li>
-      <li>ipintr [36]<ul>
+      <li>ipintr [42]<ul>
         <li>splimp</li>
         <li>splx</li>
+        <li>ip_intercept [3]<ul>
+          <li>m_copydata [2]<ul>
+            <li>min</li>
+          </ul></li>
+        </ul></li>
         <li>in_cksum</li>
         <li>icmp_input [19]<ul>
           <li>min</li>
@@ -181,6 +186,11 @@
         </ul></li>
         <li>splimp</li>
         <li>splx</li>
+        <li>ip_intercept [3]<ul>
+          <li>m_copydata [2]<ul>
+            <li>min</li>
+          </ul></li>
+        </ul></li>
         <li>in_cksum</li>
         <li>icmp_input [8]<ul>
           <li>min</li>
@@ -198,7 +208,7 @@
       </ul></li>
     </ul></li>
   </ul></li>
-  <li>handshake [503]<ul>
+  <li>handshake [677]<ul>
     <li>listenon [43]<ul>
       <li>socreate [17]<ul>
         <li>pffindtype</li>
@@ -350,9 +360,16 @@
       <li>splx</li>
       <li>xfree</li>
     </ul></li>
-    <li>ipintr [153]<ul>
+    <li>imin</li>
+    <li>imin</li>
+    <li>ipintr [162]<ul>
       <li>splimp</li>
       <li>splx</li>
+      <li>ip_intercept [3]<ul>
+        <li>m_copydata [2]<ul>
+          <li>min</li>
+        </ul></li>
+      </ul></li>
       <li>in_cksum</li>
       <li>tcp_input [75]<ul>
         <li>in_cksum</li>
@@ -456,6 +473,11 @@
       </ul></li>
       <li>splimp</li>
       <li>splx</li>
+      <li>ip_intercept [3]<ul>
+        <li>m_copydata [2]<ul>
+          <li>min</li>
+        </ul></li>
+      </ul></li>
       <li>in_cksum</li>
       <li>tcp_input [42]<ul>
         <li>in_cksum</li>
@@ -513,6 +535,11 @@
       </ul></li>
       <li>splimp</li>
       <li>splx</li>
+      <li>ip_intercept [3]<ul>
+        <li>m_copydata [2]<ul>
+          <li>min</li>
+        </ul></li>
+      </ul></li>
       <li>in_cksum</li>
       <li>tcp_input [24]<ul>
         <li>in_cksum</li>
@@ -546,6 +573,131 @@
       <li>splimp</li>
       <li>splx</li>
     </ul></li>
+    <li>imin</li>
+    <li>imin</li>
+    <li>acceptso [19]<ul>
+      <li>splnet</li>
+      <li>soqremque</li>
+      <li>m_get [4]<ul>
+        <li>xmalloc</li>
+        <li>splimp</li>
+        <li>splx</li>
+      </ul></li>
+      <li>soaccept [7]<ul>
+        <li>splnet</li>
+        <li>tcp_usrreq [4]<ul>
+          <li>splnet</li>
+          <li>in_setpeeraddr</li>
+          <li>splx</li>
+        </ul></li>
+        <li>splx</li>
+      </ul></li>
+      <li>m_freem [4]<ul>
+        <li>splimp</li>
+        <li>splx</li>
+        <li>xfree</li>
+      </ul></li>
+      <li>splx</li>
+    </ul></li>
+    <li>imin</li>
+    <li>imin</li>
+    <li>imin</li>
+    <li>writeso [35]<ul>
+      <li>sosend [34]<ul>
+        <li>splnet</li>
+        <li>imin</li>
+        <li>splx</li>
+        <li>xmalloc</li>
+        <li>splimp</li>
+        <li>splx</li>
+        <li>min</li>
+        <li>min</li>
+        <li>uiomove [2]<ul>
+          <li>copyin</li>
+        </ul></li>
+        <li>splnet</li>
+        <li>tcp_usrreq [21]<ul>
+          <li>splnet</li>
+          <li>sbappend [2]<ul>
+            <li>sbcompress</li>
+          </ul></li>
+          <li>tcp_output [16]<ul>
+            <li>min</li>
+            <li>min</li>
+            <li>imin</li>
+            <li>xmalloc</li>
+            <li>splimp</li>
+            <li>splx</li>
+            <li>m_copydata [2]<ul>
+              <li>min</li>
+            </ul></li>
+            <li>in_cksum</li>
+            <li>ip_output [6]<ul>
+              <li>in_broadcast</li>
+              <li>in_cksum</li>
+              <li>looutput [3]<ul>
+                <li>splimp</li>
+                <li>splx</li>
+              </ul></li>
+            </ul></li>
+          </ul></li>
+          <li>splx</li>
+        </ul></li>
+        <li>splx</li>
+      </ul></li>
+    </ul></li>
+    <li>ipintr [16]<ul>
+      <li>splimp</li>
+      <li>splx</li>
+      <li>ip_intercept [3]<ul>
+        <li>m_copydata [2]<ul>
+          <li>min</li>
+        </ul></li>
+      </ul></li>
+      <li>in_cksum</li>
+      <li>tcp_input [7]<ul>
+        <li>in_cksum</li>
+        <li>imin</li>
+        <li>sbappend [2]<ul>
+          <li>sbcompress</li>
+        </ul></li>
+        <li>sowakeup [2]<ul>
+          <li>selwakeup</li>
+        </ul></li>
+      </ul></li>
+      <li>splimp</li>
+      <li>splx</li>
+    </ul></li>
+    <li>imin</li>
+    <li>imin</li>
+    <li>imin</li>
+    <li>readso [19]<ul>
+      <li>soreceive [18]<ul>
+        <li>splnet</li>
+        <li>splx</li>
+        <li>uiomove [2]<ul>
+          <li>copyout</li>
+        </ul></li>
+        <li>splnet</li>
+        <li>splimp</li>
+        <li>splx</li>
+        <li>xfree</li>
+        <li>tcp_usrreq [8]<ul>
+          <li>splnet</li>
+          <li>tcp_output [5]<ul>
+            <li>min</li>
+            <li>min</li>
+            <li>imin</li>
+            <li>min</li>
+          </ul></li>
+          <li>splx</li>
+        </ul></li>
+        <li>splx</li>
+      </ul></li>
+    </ul></li>
+    <li>imin</li>
+    <li>imin</li>
+    <li>imin</li>
     <li>soclose [51]<ul>
       <li>splnet</li>
       <li>sodisconnect [30]<ul>
@@ -613,9 +765,14 @@
       <li>sofree</li>
       <li>splx</li>
     </ul></li>
-    <li>ipintr [62]<ul>
+    <li>ipintr [71]<ul>
       <li>splimp</li>
       <li>splx</li>
+      <li>ip_intercept [3]<ul>
+        <li>m_copydata [2]<ul>
+          <li>min</li>
+        </ul></li>
+      </ul></li>
       <li>in_cksum</li>
       <li>tcp_input [30]<ul>
         <li>in_cksum</li>
@@ -659,15 +816,24 @@
       </ul></li>
       <li>splimp</li>
       <li>splx</li>
+      <li>ip_intercept [3]<ul>
+        <li>m_copydata [2]<ul>
+          <li>min</li>
+        </ul></li>
+      </ul></li>
       <li>in_cksum</li>
-      <li>tcp_input [23]<ul>
+      <li>tcp_input [26]<ul>
         <li>in_cksum</li>
         <li>in_pcblookup</li>
         <li>imin</li>
         <li>max</li>
         <li>tcp_xmit_timer</li>
         <li>min</li>
-        <li>sbdrop</li>
+        <li>sbdrop [4]<ul>
+          <li>splimp</li>
+          <li>splx</li>
+          <li>xfree</li>
+        </ul></li>
         <li>soisdisconnected [6]<ul>
           <li>wakeup</li>
           <li>sowakeup [2]<ul>
@@ -692,12 +858,27 @@
       <li>splimp</li>
       <li>splx</li>
     </ul></li>
-    <li>soclose [82]<ul>
+    <li>imin</li>
+    <li>imin</li>
+    <li>imin</li>
+    <li>soclose [51]<ul>
       <li>splnet</li>
-      <li>soabort [51]<ul>
-        <li>tcp_usrreq [50]<ul>
+      <li>sodisconnect [30]<ul>
+        <li>splnet</li>
+        <li>tcp_usrreq [27]<ul>
           <li>splnet</li>
-          <li>tcp_drop [47]<ul>
+          <li>tcp_disconnect [24]<ul>
+            <li>soisdisconnecting [6]<ul>
+              <li>wakeup</li>
+              <li>sowakeup [2]<ul>
+                <li>selwakeup</li>
+              </ul></li>
+              <li>sowakeup [2]<ul>
+                <li>selwakeup</li>
+              </ul></li>
+            </ul></li>
+            <li>sbflush</li>
+            <li>tcp_usrclosed</li>
             <li>tcp_output [15]<ul>
               <li>min</li>
               <li>min</li>
@@ -716,58 +897,15 @@
                 </ul></li>
               </ul></li>
             </ul></li>
-            <li>tcp_close [31]<ul>
-              <li>m_free [4]<ul>
-                <li>splimp</li>
-                <li>splx</li>
-                <li>xfree</li>
-              </ul></li>
-              <li>xfree</li>
-              <li>soisdisconnected [6]<ul>
-                <li>wakeup</li>
-                <li>sowakeup [2]<ul>
-                  <li>selwakeup</li>
-                </ul></li>
-                <li>sowakeup [2]<ul>
-                  <li>selwakeup</li>
-                </ul></li>
-              </ul></li>
-              <li>in_pcbdetach [19]<ul>
-                <li>sofree [14]<ul>
-                  <li>soqremque</li>
-                  <li>soqremque</li>
-                  <li>sbrelease [2]<ul>
-                    <li>sbflush</li>
-                  </ul></li>
-                  <li>sorflush [8]<ul>
-                    <li>splimp</li>
-                    <li>socantrcvmore [3]<ul>
-                      <li>sowakeup [2]<ul>
-                        <li>selwakeup</li>
-                      </ul></li>
-                    </ul></li>
-                    <li>splx</li>
-                    <li>sbrelease [2]<ul>
-                      <li>sbflush</li>
-                    </ul></li>
-                  </ul></li>
-                  <li>xfree</li>
-                </ul></li>
-                <li>rtfree</li>
-                <li>ip_freemoptions</li>
-                <li>_remque</li>
-                <li>xfree</li>
-              </ul></li>
-            </ul></li>
           </ul></li>
           <li>splx</li>
         </ul></li>
+        <li>splx</li>
       </ul></li>
-      <li>tcp_usrreq [16]<ul>
+      <li>tcp_usrreq [17]<ul>
         <li>splnet</li>
-        <li>tcp_close [13]<ul>
-          <li>xfree</li>
-          <li>soisdisconnected [6]<ul>
+        <li>tcp_disconnect [14]<ul>
+          <li>soisdisconnecting [6]<ul>
             <li>wakeup</li>
             <li>sowakeup [2]<ul>
               <li>selwakeup</li>
@@ -776,43 +914,95 @@
               <li>selwakeup</li>
             </ul></li>
           </ul></li>
-          <li>in_pcbdetach [5]<ul>
-            <li>sofree</li>
-            <li>ip_freemoptions</li>
-            <li>_remque</li>
-            <li>xfree</li>
+          <li>sbflush</li>
+          <li>tcp_usrclosed</li>
+          <li>tcp_output [5]<ul>
+            <li>min</li>
+            <li>min</li>
+            <li>imin</li>
+            <li>min</li>
           </ul></li>
         </ul></li>
         <li>splx</li>
       </ul></li>
-      <li>sofree [12]<ul>
-        <li>sbrelease [2]<ul>
-          <li>sbflush</li>
-        </ul></li>
-        <li>sorflush [8]<ul>
-          <li>splimp</li>
-          <li>socantrcvmore [3]<ul>
-            <li>sowakeup [2]<ul>
-              <li>selwakeup</li>
-            </ul></li>
-          </ul></li>
-          <li>splx</li>
-          <li>sbrelease [2]<ul>
-            <li>sbflush</li>
-          </ul></li>
-        </ul></li>
-        <li>xfree</li>
-      </ul></li>
+      <li>sofree</li>
       <li>splx</li>
     </ul></li>
-    <li>ipintr [43]<ul>
+    <li>ipintr [94]<ul>
       <li>splimp</li>
       <li>splx</li>
+      <li>ip_intercept [3]<ul>
+        <li>m_copydata [2]<ul>
+          <li>min</li>
+        </ul></li>
+      </ul></li>
       <li>in_cksum</li>
-      <li>tcp_input [37]<ul>
+      <li>tcp_input [38]<ul>
         <li>in_cksum</li>
         <li>imin</li>
         <li>max</li>
+        <li>tcp_reass [9]<ul>
+          <li>_insque</li>
+          <li>_remque</li>
+          <li>m_freem [4]<ul>
+            <li>splimp</li>
+            <li>splx</li>
+            <li>xfree</li>
+          </ul></li>
+          <li>sowakeup [2]<ul>
+            <li>selwakeup</li>
+          </ul></li>
+        </ul></li>
+        <li>socantrcvmore [3]<ul>
+          <li>sowakeup [2]<ul>
+            <li>selwakeup</li>
+          </ul></li>
+        </ul></li>
+        <li>tcp_canceltimers</li>
+        <li>soisdisconnected [6]<ul>
+          <li>wakeup</li>
+          <li>sowakeup [2]<ul>
+            <li>selwakeup</li>
+          </ul></li>
+          <li>sowakeup [2]<ul>
+            <li>selwakeup</li>
+          </ul></li>
+        </ul></li>
+        <li>tcp_output [15]<ul>
+          <li>min</li>
+          <li>min</li>
+          <li>imin</li>
+          <li>min</li>
+          <li>xmalloc</li>
+          <li>splimp</li>
+          <li>splx</li>
+          <li>in_cksum</li>
+          <li>ip_output [6]<ul>
+            <li>in_broadcast</li>
+            <li>in_cksum</li>
+            <li>looutput [3]<ul>
+              <li>splimp</li>
+              <li>splx</li>
+            </ul></li>
+          </ul></li>
+        </ul></li>
+      </ul></li>
+      <li>splimp</li>
+      <li>splx</li>
+      <li>ip_intercept [3]<ul>
+        <li>m_copydata [2]<ul>
+          <li>min</li>
+        </ul></li>
+      </ul></li>
+      <li>in_cksum</li>
+      <li>tcp_input [41]<ul>
+        <li>in_cksum</li>
+        <li>in_pcblookup</li>
+        <li>imin</li>
+        <li>max</li>
+        <li>tcp_xmit_timer</li>
+        <li>min</li>
+        <li>sbdrop</li>
         <li>tcp_close [29]<ul>
           <li>m_free [4]<ul>
             <li>splimp</li>
@@ -861,6 +1051,50 @@
         </ul></li>
       </ul></li>
       <li>splimp</li>
+      <li>splx</li>
+    </ul></li>
+    <li>soclose [31]<ul>
+      <li>splnet</li>
+      <li>tcp_usrreq [16]<ul>
+        <li>splnet</li>
+        <li>tcp_close [13]<ul>
+          <li>xfree</li>
+          <li>soisdisconnected [6]<ul>
+            <li>wakeup</li>
+            <li>sowakeup [2]<ul>
+              <li>selwakeup</li>
+            </ul></li>
+            <li>sowakeup [2]<ul>
+              <li>selwakeup</li>
+            </ul></li>
+          </ul></li>
+          <li>in_pcbdetach [5]<ul>
+            <li>sofree</li>
+            <li>ip_freemoptions</li>
+            <li>_remque</li>
+            <li>xfree</li>
+          </ul></li>
+        </ul></li>
+        <li>splx</li>
+      </ul></li>
+      <li>sofree [12]<ul>
+        <li>sbrelease [2]<ul>
+          <li>sbflush</li>
+        </ul></li>
+        <li>sorflush [8]<ul>
+          <li>splimp</li>
+          <li>socantrcvmore [3]<ul>
+            <li>sowakeup [2]<ul>
+              <li>selwakeup</li>
+            </ul></li>
+          </ul></li>
+          <li>splx</li>
+          <li>sbrelease [2]<ul>
+            <li>sbflush</li>
+          </ul></li>
+        </ul></li>
+        <li>xfree</li>
+      </ul></li>
       <li>splx</li>
     </ul></li>
   </ul></li>
