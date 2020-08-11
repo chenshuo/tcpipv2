@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>System calls - TCP/IP Illustrated vol. 2</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "System calls";
+    var mkdocs_page_input_path = "syscall.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> TCP/IP Illustrated vol. 2</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Walkthrough 4.4BSD-Lite2</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">System calls</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#socket">socket()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#connect">connect()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bind">bind()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#listen">listen()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#accept">accept()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#close">close()</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../tcp/">TCP</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../init/">Initialization</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">TCP/IP Illustrated vol. 2</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Walkthrough 4.4BSD-Lite2 &raquo;</li>
+        
+      
+    
+    <li>System calls</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="ch-15-sockets-api">Ch. 15 Sockets API</h1>
+<p><img alt="sockets" src="../sockets.png" /></p>
+<p>We directly programming with <code>struct socket</code>, bypassing the <code>proc</code> and <code>file</code> <code>struct</code>s.</p>
+<p>To step through the code, run <code>gdb objs/test_init</code>, then set break points on <code>socreate</code>, <code>sobind</code>, etc.</p>
+<h2 id="socket"><code>socket()</code></h2>
+<pre><code class="c">int socket(int domain, int type, int protocol);
+
+int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+
+socket(AF_INET, SOCK_STREAM, 0)
+  -&gt; syscall -&gt; socket
+    -&gt; socreate(AF_INET, aso = &amp;so, SOCK_STREAM, 0)
+      struct protosw *prp = pffindtype(AF_INET, SOCK_STREAM);
+      struct socket *so = malloc();
+      prp-&gt;pr_usrreq(so, PRU_ATTACH, ...) -&gt; tcp_usrreq(so, PRU_ATTACH, ...)
+        -&gt; tcp_attach(so)
+          -&gt; soreserve(so, tcp_sendspace=8192, tcp_recvspace=8192)
+            -&gt; sbreserve(&amp;so-&gt;so_snd, tcp_sendspace=8192)
+            -&gt; sbreserve(&amp;so-&gt;so_rcv, tcp_recvspace=8192)
+          -&gt; in_pcballoc(so, &amp;tcb)
+          -&gt; struct inpcb *inp = sotoinpcb(so)
+          -&gt; struct tcpcb *tp = tcp_newtcpcb(inp)
+          -&gt; tp-&gt;t_state = TCPS_CLOSED;
+      *aso = so
+</code></pre>
+
+<h2 id="connect"><code>connect()</code></h2>
+<pre><code>connect()  // connect to 127.0.0.1:1234
+  -&gt; syscall -&gt; connect
+    -&gt; soconnect(struct socket *so, struct mbuf *nam)
+      so-&gt;so_proto-&gt;pr_usrreq(so, PRU_CONNECT, NULL, nam, NULL) -&gt; tcp_usrreq(so, PRU_CONNECT, ...)
+        if (inp-&gt;inp_lport == 0) in_pcbbind(inp, NULL)  // common unless bind() already
+        -&gt; in_pcbconnect(inp, nam)
+          -&gt; rtalloc
+        tp-&gt;t_template = tcp_template(tp)
+        soisconnecting(so)
+        tp-&gt;t_state = TCPS_SYN_SENT;
+        -&gt; tcp_sendseqinit(tp)
+        -&gt; tcp_output(tp)  // send SYN
+          -&gt; in_cksum()
+          -&gt; ip_output()
+            -&gt; in_cksum()
+            -&gt; ifp-&gt;if_output() -&gt; looutput()
+</code></pre>
+
+<h2 id="bind"><code>bind()</code></h2>
+<pre><code>bind()  // bind on 0.0.0.0:1234
+  -&gt; syscall -&gt; bind
+    -&gt; sobind(struct socket *so, struct mbuf *nam)
+      so-&gt;so_proto-&gt;pr_usrreq(so, PRU_BIND, NULL, nam, NULL) -&gt; tcp_usrreq(so, PRU_BIND, ...)
+        -&gt; in_pcbbind(inp, nam)
+</code></pre>
+
+<h2 id="listen"><code>listen()</code></h2>
+<pre><code>listen()  // backlog = 5
+  -&gt; syscall -&gt; listen
+    -&gt; solisten(struct socket *so, int backlog)
+      so-&gt;so_proto-&gt;pr_usrreq)(so, PRU_LISTEN, ...) -&gt; tcp_usrreq(so, PRU_LISTEN, ...)
+        if (inp-&gt;inp_lport == 0) in_pcbbind(inp, NULL)  // uncommon, because bind() already
+        tp-&gt;t_state = TCPS_LISTEN;
+      so-&gt;so_options |= SO_ACCEPTCONN
+      so-&gt;so_qlimit = min(backlog, SOMAXCONN)
+</code></pre>
+
+<h2 id="accept"><code>accept()</code></h2>
+<h2 id="close"><code>close()</code></h2>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../tcp/" class="btn btn-neutral float-right" title="TCP">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../tcp/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
