@@ -1,4 +1,5 @@
 site_name: TCP/IP Illustrated vol. 2
+google_analytics: ['UA-1220141-6', 'chenshuo.com']
 theme: readthedocs
 pages:
 - Home: index.md
